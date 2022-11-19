@@ -5,5 +5,5 @@ export const AppConfig = {
   url: 'https://onuma-ryota.com',
   locale: 'ja',
   author: 'Ryota Onuma',
-  pagination_size: 2,
+  pagination_size: 10,
 };

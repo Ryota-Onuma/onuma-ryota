@@ -23,6 +23,9 @@ export const PostStyle = {
           width: '100%',
           height: '320px',
           backgroundColor: theme.palette.monotone.black50,
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
         },
         postInfo: {
           container: {
@@ -71,6 +74,9 @@ export const PostStyle = {
           height: '260px',
           backgroundColor: theme.palette.monotone.black50,
           position: 'relative',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
         },
         postInfo: {
           container: {

@@ -27,7 +27,8 @@ const Main = (props: IMainProps) => {
         isHeaderClicked={isHeaderClicked}
         toggleHeaderClicked={toggleHeaderClicked}
       />
-      <Box>{props.children}</Box>
+
+      <Box sx={isHeaderClicked ? Style.hide : Style.show}>{props.children}</Box>
       <Footer />
     </Container>
   );

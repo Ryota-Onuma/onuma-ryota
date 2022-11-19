@@ -1,10 +1,10 @@
-const path = require('path');
+const path = require("path");
 /* eslint-disable import/no-extraneous-dependencies */
-const withBundleAnalyzer = require('@next/bundle-analyzer')({
-  enabled: process.env.ANALYZE === 'true',
+const withBundleAnalyzer = require("@next/bundle-analyzer")({
+  enabled: process.env.ANALYZE === "true",
 });
 
-const baseUrl = '';
+const baseUrl = "";
 
 module.exports = withBundleAnalyzer({
   poweredByHeader: false,
@@ -15,11 +15,11 @@ module.exports = withBundleAnalyzer({
   },
   webpack(conf) {
     const config = conf;
-    config.resolve.alias['@'] = path.join(__dirname, 'src');
+    config.resolve.alias["@"] = path.join(__dirname, "src");
     return config;
   },
   images: {
-    domains: ['res.cloudinary.com'],
+    domains: ["res.cloudinary.com"],
   },
   // The starter code load resources from `public` folder with `router.basePath` in React components.
   // So, the source code is "basePath-ready".

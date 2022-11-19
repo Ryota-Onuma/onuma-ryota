@@ -6,13 +6,13 @@ import { Pagination as MuiPagination, PaginationItem } from '@mui/material';
 
 import { PaginationStyle as Style } from './style';
 
-export type IPaginationProps = {
+export type PaginationProps = {
   current?: number;
   total?: number;
   onChange?: (page: number) => void;
 };
 
-const Pagination: React.FC<IPaginationProps> = (props) => {
+const Pagination: React.FC<PaginationProps> = (props) => {
   const { current, total, onChange } = props;
   return (
     <div className="text-sm flex justify-between">

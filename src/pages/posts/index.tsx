@@ -2,7 +2,7 @@ import React from 'react';
 
 import { GetStaticProps } from 'next';
 
-import { IPaginationProps } from '@/components/elements/Pagination';
+import { PaginationProps } from '@/components/elements/Pagination';
 import { PostGallery } from '@/components/pages/Posts';
 import { Meta } from '@/layout/Meta';
 import { Main } from '@/templates/Main';
@@ -12,18 +12,18 @@ import { getAllPosts } from '@/utils/Content';
 import { useSize } from '@/utils/Hooks';
 import { convertTo2D } from '@/utils/Pagination';
 
-type IPageUrl = {
+type PageUrlProps = {
   page: string;
 };
 
 type PaginatePostsPageProps = {
   posts: Post[];
-  pagination: IPaginationProps;
+  pagination: PaginationProps;
 };
 
 export const getStaticProps: GetStaticProps<
   PaginatePostsPageProps,
-  IPageUrl
+  PageUrlProps
 > = async ({ params }) => {
   const posts = getAllPosts([
     'slug',

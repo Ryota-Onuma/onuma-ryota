@@ -42,6 +42,7 @@ export const PostStyle = {
       height: '240px',
       display: 'flex',
       justifyContent: 'center',
+      alignItems: 'center',
       position: 'relative',
     },
   },

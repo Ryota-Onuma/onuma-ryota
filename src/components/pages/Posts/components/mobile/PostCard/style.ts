@@ -18,6 +18,7 @@ export const PostStyle = {
       display: 'flex',
       justifyContent: 'center',
       position: 'relative',
+      alignItems: 'center',
     },
   },
   postBottom: {

@@ -1,19 +1,19 @@
 import { Container, Box, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
 
-import { IPaginationProps, Pagination } from '@/components/elements/Pagination';
+import { PaginationProps, Pagination } from '@/components/elements/Pagination';
 import { PostCard as MobilePostCard } from '@/components/pages/Posts/components/mobile/PostCard';
 import { PostCard as PCPostCard } from '@/components/pages/Posts/components/pc/PostCard';
 import { PageProps, Post } from '@/types';
 
 import { PostsStyle as Style } from './style';
 
-export type IPostGalleryProps = {
+export type PostGalleryProps = PageProps & {
   posts: Post[];
-  pagination: IPaginationProps;
-} & PageProps;
+  pagination: PaginationProps;
+};
 
-const PostGallery = (props: IPostGalleryProps) => {
+const PostGallery = (props: PostGalleryProps) => {
   const router = useRouter();
   const onChangePagination = (page: number) => {
     router.replace(`/posts/${page}`);

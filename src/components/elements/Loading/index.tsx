@@ -7,10 +7,8 @@ import { LoadingStyle as Style } from './style';
 
 const Loading = () => {
   return (
-    <Box sx={Style.loadingPage}>
-      <Box sx={Style.loadingContainer}>
-        <CircularProgress sx={Style.loading} />
-      </Box>
+    <Box sx={Style.loadingContainer}>
+      <CircularProgress sx={Style.loading} />
     </Box>
   );
 };

@@ -1,8 +1,11 @@
+import { useState } from 'react';
+
 import { Icon } from '@iconify/react';
 import { Box, Typography } from '@mui/material';
 import Image from 'next/image';
 import Link from 'next/link';
 
+import Loading from '@/components/elements/Loading';
 import { Post } from '@/types';
 
 import { PostStyle as Style } from './style';
@@ -13,15 +16,22 @@ type PostProps = {
 
 export const PostCard: React.FC<PostProps> = (props) => {
   const { post } = props;
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   return (
-    <Link href={`/post/${encodeURIComponent(post.slug)}`} style={Style.a}>
+    <Link
+      href={`/post/${encodeURIComponent(post.slug)}`}
+      style={Style.a}
+      passHref
+    >
       <Box sx={Style.post}>
         <Box sx={Style.postTop.container}>
+          {isLoading && <Loading />}
           <Image
             src={post.thumbnail ?? '/images/buntyo.png'}
             alt={`thumbnail of ${post.title}`}
             objectFit="cover"
             layout="fill"
+            onLoadingComplete={() => setIsLoading(false)}
           />
         </Box>
         <Box sx={Style.postBottom.container}>

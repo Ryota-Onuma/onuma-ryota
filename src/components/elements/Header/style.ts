@@ -5,7 +5,7 @@ export const HeaderStyle = {
     width: '100%',
     backgroundColor: theme.palette.primary.main,
     py: 2,
-    px: 6,
+    px: 12,
   },
   headerInner: {
     display: 'flex',
@@ -21,7 +21,7 @@ export const HeaderStyle = {
     cursor: 'pointer',
     borderBottom: `1px solid transparent`,
     pb: 1.5,
-    px: 1.5,
+    px: 3,
     '&:hover': {
       borderColor: theme.palette.monotone.white,
     },
@@ -37,6 +37,7 @@ export const HeaderStyle = {
   mobileHeaderIconContainer: {
     color: theme.palette.monotone.white,
     zIndex: 100,
+    mr: '10px',
   },
   mobileHeaderOverlay: {
     position: 'absolute',
@@ -47,13 +48,15 @@ export const HeaderStyle = {
     zIndex: 10,
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
   },
   mobilelinkContainer: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
+    width: '100vw',
+    height: '90vh',
     gap: 3,
     a: {
       textDecoration: 'none',

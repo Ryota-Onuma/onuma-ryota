@@ -6,6 +6,7 @@ import { marked } from 'marked';
 import Image from 'next/image';
 import Prism from 'prismjs';
 
+import Loading from '@/components/elements/Loading';
 import { PageProps, Post as PostType } from '@/types';
 
 import { PostStyle as Style } from './style';
@@ -17,6 +18,7 @@ type PostPageProps = PageProps & {
 const Post: React.FC<PostPageProps> = (props) => {
   const { isDesktop, post } = props;
   const [content, setContent] = useState<string>('');
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   useEffect(() => {
     marked.setOptions({
       breaks: true,
@@ -43,11 +45,13 @@ const Post: React.FC<PostPageProps> = (props) => {
           <Box sx={Style.desktop.post.container}>
             <Box sx={Style.desktop.post.top.container}>
               <Box sx={Style.desktop.post.top.imageWrapper}>
+                {isLoading && <Loading />}
                 <Image
                   src={post.thumbnail ?? '/images/buntyo.png'}
                   alt={`thumbnail of ${post.title}`}
                   objectFit="cover"
                   layout="fill"
+                  onLoadingComplete={() => setIsLoading(false)}
                 />
               </Box>
               <Box sx={Style.desktop.post.top.postInfo.container}>
@@ -81,11 +85,13 @@ const Post: React.FC<PostPageProps> = (props) => {
           <Box sx={Style.mobile.post.container}>
             <Box sx={Style.mobile.post.top.container}>
               <Box sx={Style.mobile.post.top.imageWrapper}>
+                {isLoading && <Loading />}
                 <Image
                   src={post.thumbnail ?? '/images/buntyo.png'}
                   alt={`thumbnail of ${post.title}`}
                   objectFit="cover"
                   layout="fill"
+                  onLoadingComplete={() => setIsLoading(false)}
                 />
               </Box>
               <Box sx={Style.mobile.post.top.postInfo.container}>

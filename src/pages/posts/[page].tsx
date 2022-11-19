@@ -2,7 +2,7 @@ import React from 'react';
 
 import { GetStaticPaths, GetStaticProps } from 'next';
 
-import { IPaginationProps } from '@/components/elements/Pagination';
+import { PaginationProps } from '@/components/elements/Pagination';
 import { PostGallery } from '@/components/pages/Posts';
 import { Meta } from '@/layout/Meta';
 import { Main } from '@/templates/Main';
@@ -12,13 +12,13 @@ import { getAllPosts } from '@/utils/Content';
 import { useSize } from '@/utils/Hooks';
 import { convertTo2D } from '@/utils/Pagination';
 
-type IPageUrl = {
+type PageUrlProps = {
   page: string;
 };
 
 type PaginatePostsPageProps = {
   posts: Post[];
-  pagination: IPaginationProps;
+  pagination: PaginationProps;
 };
 
 const PaginatePosts = (props: PaginatePostsPageProps) => {
@@ -41,7 +41,7 @@ const PaginatePosts = (props: PaginatePostsPageProps) => {
   );
 };
 
-export const getStaticPaths: GetStaticPaths<IPageUrl> = async () => {
+export const getStaticPaths: GetStaticPaths<PageUrlProps> = async () => {
   const posts = getAllPosts(['slug']);
 
   const pages = convertTo2D(posts, AppConfig.pagination_size);
@@ -58,7 +58,7 @@ export const getStaticPaths: GetStaticPaths<IPageUrl> = async () => {
 
 export const getStaticProps: GetStaticProps<
   PaginatePostsPageProps,
-  IPageUrl
+  PageUrlProps
 > = async ({ params }) => {
   const posts = getAllPosts([
     'slug',

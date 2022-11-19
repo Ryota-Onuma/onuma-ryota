@@ -5,14 +5,14 @@
  * Ported for PrismJS by Simon Jespersen [https://github.com/simjes]
  */
 
- code {
+code {
   padding: 0px 6px 1px 6px;
-  background-color: #13363F;
+  background-color: #13363f;
 }
 
 code[class*="language-"],
 pre[class*="language-"] {
-  background: #13363F;
+  background: #13363f;
   color: #ffffff;
   font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
   /* this is the default */
@@ -62,7 +62,7 @@ pre[class*="language-"] {
 }
 
 /* Properties specific to inline code */
-:not(pre)>code[class*="language-"] {
+:not(pre) > code[class*="language-"] {
   padding: 0.2em 0.3em;
   border-radius: 0.5rem;
   white-space: normal;
@@ -142,25 +142,25 @@ pre[class*="language-"] {
   opacity: 0.7;
 }
 
-
 .postContent h1 {
-  font-size: 1.5rem;
-  margin: 50px 0;
+  font-size: 1.55rem;
+  margin: 30px 0 25px 0;
+  font-weight: bold;
 }
 
 .postContent h2 {
   border-left: 4px solid #fddd00;
   padding-left: 15px;
   box-sizing: border-box;
-  margin: 40px 0;
-  font-size: 1.4rem;
+  margin: 30px 0 25px 0;
+  font-size: 1.3rem;
 }
 
 .postContent h3 {
-  border-left: 4px dashed #fddd00;
+  border-left: 2px dashed #fddd00;
   padding-left: 15px;
   margin: 35px 0 25px 0;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
 }
 
 .postContent h5 {
@@ -177,12 +177,12 @@ pre[class*="language-"] {
   text-decoration: underline;
   margin: 3px 0;
   display: inline;
-  color:white;
+  color: white;
 }
 
 .postContent p {
   font-size: 18px;
-  line-height: 25px;
+  line-height: 38px;
 }
 
 .postContent ul {
@@ -192,10 +192,9 @@ pre[class*="language-"] {
 .postContent ul li {
   list-style: square;
   list-style-position: inside;
-
   font-size: 18px;
-  line-height: 25px;
-  margin: 5px 0;
+  line-height: 38px;
+  margin: 20px 0;
   word-break: break-all;
 }
 
@@ -204,13 +203,12 @@ pre[class*="language-"] {
   color: white;
 }
 
-
 .postContent ol li {
   list-style: decimal;
   list-style-position: inside;
   font-size: 18px;
-  line-height: 25px;
-  margin: 5px 0;
+  line-height: 38px;
+  margin: 20px 0;
   word-break: break-all;
 }
 
@@ -263,49 +261,53 @@ pre[class*="language-"] {
   margin: 20px auto;
   width: 500px;
   height: 281px;
-  object-fit: contain
+  object-fit: contain;
 }
 
 @media (max-width: 640px) {
   .postContent img {
-      display: block;
-      margin: 20px auto;
-      width: 100%;
-      object-fit: contain
+    display: block;
+    margin: 20px auto;
+    width: 100%;
+    object-fit: contain;
   }
 
-  .postContent ol  {
-      padding:0;
-
+  .postContent ol {
+    padding: 0;
   }
-  .postContent ul  {
-      padding:0;
+  .postContent ul {
+    padding: 0;
   }
 
   .postContent ol li {
-      padding:5px 0;
-
+    margin: 20px 0;
+    font-size: 18px;
+    line-height: 35px;
   }
-  .postContent ul  li{
-      padding:5px 0;
+  .postContent ul li {
+    margin: 20px 0;
+    font-size: 18px;
+    line-height: 35px;
   }
 
+  .postContent h1 {
+    margin: 35px 0;
+  }
 
-.postContent h1 {
-  margin: 40px 0;
-}
+  .postContent h2 {
+    margin: 30px 0;
+  }
 
-.postContent h2 {
+  .postContent h3 {
+    margin: 25px 0 15px 0;
+  }
 
-  margin: 30px 0;
-}
+  .postContent h5 {
+    margin: 10px 0;
+  }
 
-.postContent h3 {
-  margin: 25px 0 15px 0;
-}
-
-.postContent h5 {
-  margin: 10px 0;
-}
-
+  .postContent p {
+    font-size: 18px;
+    line-height: 35px;
+  }
 }

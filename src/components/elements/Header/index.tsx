@@ -1,6 +1,4 @@
-import { Icon } from '@iconify/react';
 import { Link, Container, Box, Typography } from '@mui/material';
-import Image from 'next/image';
 
 import { HeaderStyle as Style } from './style';
 
@@ -25,38 +23,7 @@ type HeaderProps = {
   toggleHeaderClicked: () => void;
 };
 
-const PCHeader = () => {
-  return (
-    <Container
-      component="header"
-      disableGutters={true}
-      sx={Style.header}
-      maxWidth={false}
-    >
-      <Box sx={Style.headerInner}>
-        <Box>
-          <Link href="/">
-            <Image
-              src="/images/buntyo.png"
-              width={42}
-              height={42}
-              alt="Offical Icon"
-            />
-          </Link>
-        </Box>
-        <Box sx={Style.linkContainer}>
-          {links.map((link: HeaderLink) => (
-            <Link href={link.url} key={link.url} sx={Style.link}>
-              <Typography component="span">{link.displayName}</Typography>
-            </Link>
-          ))}
-        </Box>
-      </Box>
-    </Container>
-  );
-};
-
-const MobileHeader = (props: {
+const HeaderComponent = (props: {
   isHeaderClicked: boolean;
   toggleHeaderClicked: () => void;
 }) => {
@@ -65,33 +32,60 @@ const MobileHeader = (props: {
     <Container
       component="header"
       disableGutters={true}
-      sx={Style.mobileHeader}
+      sx={Style.header}
       maxWidth={false}
     >
-      <Box sx={Style.mobileHeaderIconContainer}>
-        {isHeaderClicked ? (
-          <Icon
-            icon="ep:close-bold"
-            width="50"
-            height="50"
-            onClick={() => toggleHeaderClicked()}
-          />
-        ) : (
-          <Icon
-            icon="ant-design:menu-outlined"
-            width="50"
-            height="50"
-            onClick={() => toggleHeaderClicked()}
-          />
-        )}
+      <Box onClick={() => toggleHeaderClicked()} sx={Style.headerMenuContainer}>
+        <Box sx={Style.headerMenu.container}>
+          <Box
+            sx={
+              isHeaderClicked
+                ? {
+                    ...Style.headerMenu.bar,
+                    ...Style.headerMenu.clicked.barTop,
+                  }
+                : {
+                    ...Style.headerMenu.bar,
+                    ...Style.headerMenu.notClicked.barTop,
+                  }
+            }
+          ></Box>
+          <Box
+            sx={
+              isHeaderClicked
+                ? {
+                    ...Style.headerMenu.bar,
+                    ...Style.headerMenu.clicked.barMiddle,
+                  }
+                : {
+                    ...Style.headerMenu.bar,
+                    ...Style.headerMenu.notClicked.barMiddle,
+                  }
+            }
+          ></Box>
+          <Box
+            sx={
+              isHeaderClicked
+                ? {
+                    ...Style.headerMenu.bar,
+                    ...Style.headerMenu.clicked.barBottom,
+                  }
+                : {
+                    ...Style.headerMenu.bar,
+                    ...Style.headerMenu.notClicked.barBottom,
+                  }
+            }
+          ></Box>
+        </Box>
       </Box>
+      {/* </Box> */}
       {isHeaderClicked ? (
         <>
-          <Box sx={Style.mobileHeaderOverlay}>
-            <Box sx={Style.mobilelinkContainer}>
+          <Box sx={Style.headerOverlay}>
+            <Box sx={Style.linkContainer}>
               {links.map((link: HeaderLink) => (
                 <Link href={link.url} key={link.url}>
-                  <Typography component="span" sx={Style.mobileLinkDisplayName}>
+                  <Typography component="span" sx={Style.linkDisplayName}>
                     {link.displayName}
                   </Typography>
                 </Link>
@@ -107,11 +101,9 @@ const MobileHeader = (props: {
 };
 
 export const Header: React.FC<HeaderProps> = (props) => {
-  const { isDesktop, isHeaderClicked, toggleHeaderClicked } = props;
-  return isDesktop ? (
-    <PCHeader />
-  ) : (
-    <MobileHeader
+  const { isHeaderClicked, toggleHeaderClicked } = props;
+  return (
+    <HeaderComponent
       isHeaderClicked={isHeaderClicked}
       toggleHeaderClicked={toggleHeaderClicked}
     />

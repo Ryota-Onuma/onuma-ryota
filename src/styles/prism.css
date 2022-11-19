@@ -1,0 +1,311 @@
+/*
+ * Laserwave Theme originally by Jared Jones for Visual Studio Code
+ * https://github.com/Jaredk3nt/laserwave
+ *
+ * Ported for PrismJS by Simon Jespersen [https://github.com/simjes]
+ */
+
+ code {
+  padding: 0px 6px 1px 6px;
+  background-color: #13363F;
+}
+
+code[class*="language-"],
+pre[class*="language-"] {
+  background: #13363F;
+  color: #ffffff;
+  font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+  /* this is the default */
+  /* The following properties are standard, please leave them as they are */
+  font-size: 1em;
+  direction: ltr;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  line-height: 1.5;
+  -moz-tab-size: 2;
+  -o-tab-size: 2;
+  tab-size: 2;
+  /* The following properties are also standard */
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+code[class*="language-"]::-moz-selection,
+code[class*="language-"] ::-moz-selection,
+pre[class*="language-"]::-moz-selection,
+pre[class*="language-"] ::-moz-selection {
+  background: #eb64b927;
+  color: inherit;
+}
+
+code[class*="language-"]::selection,
+code[class*="language-"] ::selection,
+pre[class*="language-"]::selection,
+pre[class*="language-"] ::selection {
+  background: #eb64b927;
+  color: inherit;
+}
+
+/* Properties specific to code blocks */
+pre[class*="language-"] {
+  padding: 1.3em;
+  /* this is standard */
+  margin: 0.5em 0;
+  /* this is the default */
+  overflow: auto;
+  /* this is standard */
+  border-radius: 0.5em;
+}
+
+/* Properties specific to inline code */
+:not(pre)>code[class*="language-"] {
+  padding: 0.2em 0.3em;
+  border-radius: 0.5rem;
+  white-space: normal;
+  /* this is standard */
+}
+
+.token.comment,
+.token.prolog,
+.token.cdata {
+  color: #5fd263;
+}
+
+.token.punctuation {
+  color: #ffffff;
+}
+
+.token.builtin,
+.token.constant,
+.token.boolean {
+  color: #50b7e1;
+}
+
+.token.number {
+  color: #50b7e1;
+}
+
+.token.important,
+.token.atrule,
+.token.property,
+.token.keyword {
+  color: #ffffff;
+}
+
+.token.doctype,
+.token.operator,
+.token.inserted,
+.token.tag,
+.token.class-name,
+.token.symbol {
+  color: #ffffff;
+}
+
+.token.attr-name,
+.token.function,
+.token.deleted,
+.token.selector {
+  color: #50b7e1;
+}
+
+.token.attr-value,
+.token.regex,
+.token.char,
+.token.string {
+  color: #ffffff;
+}
+
+.token.entity,
+.token.url,
+.token.variable {
+  color: #ffffff;
+}
+
+/* The following rules are pretty similar across themes, but feel free to adjust them */
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+.token.entity {
+  cursor: help;
+}
+
+.token.namespace {
+  opacity: 0.7;
+}
+
+
+.postContent h1 {
+  font-size: 1.5rem;
+  margin: 50px 0;
+}
+
+.postContent h2 {
+  border-left: 4px solid #fddd00;
+  padding-left: 15px;
+  box-sizing: border-box;
+  margin: 40px 0;
+  font-size: 1.4rem;
+}
+
+.postContent h3 {
+  border-left: 4px dashed #fddd00;
+  padding-left: 15px;
+  margin: 35px 0 25px 0;
+  font-size: 1.2rem;
+}
+
+.postContent h5 {
+  margin: 15px 0;
+}
+
+.postContent blockquote {
+  border-left: 4px solid #037d9c;
+  padding-left: 20px;
+  margin: 10px 0;
+}
+
+.postContent a {
+  text-decoration: underline;
+  margin: 3px 0;
+  display: inline;
+  color:white;
+}
+
+.postContent p {
+  font-size: 18px;
+  line-height: 25px;
+}
+
+.postContent ul {
+  margin: 20px 0;
+}
+
+.postContent ul li {
+  list-style: square;
+  list-style-position: inside;
+
+  font-size: 18px;
+  line-height: 25px;
+  margin: 5px 0;
+  word-break: break-all;
+}
+
+.postContent ul li a {
+  display: inline;
+  color: white;
+}
+
+
+.postContent ol li {
+  list-style: decimal;
+  list-style-position: inside;
+  font-size: 18px;
+  line-height: 25px;
+  margin: 5px 0;
+  word-break: break-all;
+}
+
+.postContent ol li a {
+  display: inline;
+  color: white;
+}
+
+.postContent ul li ul {
+  margin: 0 0 0 20px;
+}
+
+.postContent ol li ol {
+  margin: 0 0 0 20px;
+}
+
+.postContent li a {
+  word-break: break-all;
+}
+
+.postContent th {
+  text-align: center;
+  background-color: rgba(#05abd7, 0.5);
+}
+
+.postContent th,
+.postContent td {
+  border: 2px solid #05abd7;
+  font-size: 18px;
+  line-height: 25px;
+  padding: 10px;
+  min-width: 100px;
+}
+
+.postContent .table-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.postContent table {
+  border-collapse: collapse;
+  /* セルの線を重ねる */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  margin: 30px 0;
+}
+
+.postContent img {
+  display: block;
+  margin: 20px auto;
+  width: 500px;
+  height: 281px;
+  object-fit: contain
+}
+
+@media (max-width: 640px) {
+  .postContent img {
+      display: block;
+      margin: 20px auto;
+      width: 100%;
+      object-fit: contain
+  }
+
+  .postContent ol  {
+      padding:0;
+
+  }
+  .postContent ul  {
+      padding:0;
+  }
+
+  .postContent ol li {
+      padding:5px 0;
+
+  }
+  .postContent ul  li{
+      padding:5px 0;
+  }
+
+
+.postContent h1 {
+  margin: 40px 0;
+}
+
+.postContent h2 {
+
+  margin: 30px 0;
+}
+
+.postContent h3 {
+  margin: 25px 0 15px 0;
+}
+
+.postContent h5 {
+  margin: 10px 0;
+}
+
+}

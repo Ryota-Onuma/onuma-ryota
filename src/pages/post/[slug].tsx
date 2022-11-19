@@ -10,17 +10,16 @@ import { getAllPosts, getPostBySlug } from '@/utils/Content';
 import { useSize } from '@/utils/Hooks';
 import { markdownToHtml } from '@/utils/Markdown';
 
-type IPostUrl = {
+type PostUrl = {
   slug: string;
 };
 
-type IPostProps = {
+type PostProps = {
   post: PostType;
 };
 
-export const getStaticPaths: GetStaticPaths<IPostUrl> = async () => {
+export const getStaticPaths: GetStaticPaths<PostUrl> = async () => {
   const posts = getAllPosts(['slug']);
-
   return {
     paths: posts.map((post) => ({
       params: {
@@ -31,7 +30,7 @@ export const getStaticPaths: GetStaticPaths<IPostUrl> = async () => {
   };
 };
 
-export const getStaticProps: GetStaticProps<IPostProps, IPostUrl> = async ({
+export const getStaticProps: GetStaticProps<PostProps, PostUrl> = async ({
   params,
 }) => {
   const post = getPostBySlug(params!.slug, [
@@ -58,7 +57,7 @@ export const getStaticProps: GetStaticProps<IPostProps, IPostUrl> = async ({
     },
   };
 };
-const PostPage: NextPage<IPostProps> = (props) => {
+const PostPage: NextPage<PostProps> = (props) => {
   const { isDesktop } = useSize();
   const { post } = props;
   return (

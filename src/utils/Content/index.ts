@@ -46,7 +46,7 @@ export function getPostBySlug(
     fields.forEach((field) => {
       switch (field) {
         case 'slug':
-          post[field] = slug;
+          post[field] = realSlug;
           break;
         case 'content':
           post[field] = content;

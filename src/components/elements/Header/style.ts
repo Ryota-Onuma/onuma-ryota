@@ -75,8 +75,8 @@ export const HeaderStyle = {
     flexDirection: 'column',
     justifyContent: 'center',
     animation: 'appear .5s ease', // src/styles/custom-nprogress.css
-    boxSizing:"border-box",
-    paddingTop:"50px"
+    boxSizing: 'border-box',
+    paddingTop: '50px',
   },
   linkContainer: {
     display: 'flex',

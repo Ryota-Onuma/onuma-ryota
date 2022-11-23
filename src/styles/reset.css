@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Murecho&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Murecho&display=swap');
 
 /* Box sizing rules */
 *,
@@ -22,8 +22,8 @@ dd {
 }
 
 /* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
-ul[role="list"],
-ol[role="list"] {
+ul[role='list'],
+ol[role='list'] {
   list-style: none;
 }
 
@@ -37,7 +37,7 @@ body {
   min-height: 100vh;
   text-rendering: optimizeSpeed;
   line-height: 1.5;
-  font-family: "Murecho", sans-serif;
+  font-family: 'Murecho', sans-serif;
 }
 
 /* A elements that don't have a class get default styles */

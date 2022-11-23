@@ -12,7 +12,9 @@
     "lint": "next lint",
     "build-types": "tsc --noEmit --pretty",
     "prepare": "husky install",
-    "format": "prettier --write --ignore-path .gitignore './**/*.{js,jsx,ts,tsx,json,css}' && eslint --fix src"
+    "eslint:fix": "eslint --fix src",
+    "pritter:fix": "prettier --write './src/**/*.{js,jsx,ts,tsx,json,css}'",
+    "format": "npm run eslint:fix && npm run pritter:fix"
   },
   "dependencies": {
     "@emotion/react": "^11.10.5",

@@ -4,13 +4,7 @@ export const TopStyle = {
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
-    },
-    topInner: {
-      py: 8,
-      width: '75%',
-      display: 'flex',
-      flexDirection: 'column',
-      gap: 13,
+      justifyContent: 'center',
     },
   },
   mobile: {
@@ -18,12 +12,7 @@ export const TopStyle = {
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
-    },
-    topInner: {
-      width: '100%',
-      display: 'flex',
-      flexDirection: 'column',
-      gap: 7,
+      justifyContent: 'center',
     },
   },
 };

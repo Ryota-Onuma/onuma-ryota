@@ -1,3 +1,6 @@
+import githubIcon from '@iconify/icons-bi/github';
+import twitterIcon from '@iconify/icons-bi/twitter';
+import { Icon } from '@iconify/react';
 import { Link, Container, Box, Typography } from '@mui/material';
 
 import { HeaderStyle as Style } from './style';
@@ -90,6 +93,14 @@ const HeaderComponent = (props: {
                   </Typography>
                 </Link>
               ))}
+            </Box>
+            <Box sx={Style.sns.container}>
+              <Box sx={Style.sns.icon}>
+                <Icon icon={githubIcon} color="white" width="30" height="30" />
+              </Box>
+              <Box sx={Style.sns.icon}>
+                <Icon icon={twitterIcon} color="white" width="30" height="30" />
+              </Box>
             </Box>
           </Box>
         </>

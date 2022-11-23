@@ -6,6 +6,10 @@ export const MainStyle = {
     width: '100vw',
     minHeight: '100vh',
     p: 0,
+    boxSizing: 'border-box',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
   },
   show: {
     display: 'block',

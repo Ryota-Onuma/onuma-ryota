@@ -6,7 +6,6 @@ export const HeaderStyle = {
     display: 'flex',
     justifyContent: 'flex-end',
     pt: 3,
-    position: 'relative',
     mb: '20px',
   },
   headerMenuContainer: {
@@ -74,7 +73,8 @@ export const HeaderStyle = {
     zIndex: 10,
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
+    animation: 'appear .5s ease', // src/styles/custom-nprogress.css
   },
   linkContainer: {
     display: 'flex',
@@ -82,7 +82,6 @@ export const HeaderStyle = {
     alignItems: 'center',
     justifyContent: 'center',
     width: '100vw',
-    height: '90vh',
     backgroundColor: theme.palette.primary.main,
     gap: 6,
     a: {
@@ -94,5 +93,15 @@ export const HeaderStyle = {
     fontSize: '24px',
     color: theme.palette.monotone.white,
     p: 2,
+  },
+  sns: {
+    container: {
+      display: 'flex',
+      justifyContent: 'center',
+    },
+    icon: {
+      m: 8,
+      cursor: 'pointer',
+    },
   },
 };

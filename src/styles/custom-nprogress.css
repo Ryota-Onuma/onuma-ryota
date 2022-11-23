@@ -10,3 +10,12 @@
   border-top-color: #fddd00;
   border-left-color: #fddd00;
 }
+
+@keyframes appear {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

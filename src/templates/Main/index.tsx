@@ -29,7 +29,10 @@ const Main = (props: IMainProps) => {
       />
 
       <Box sx={isHeaderClicked ? Style.hide : Style.show}>{props.children}</Box>
-      <Footer />
+      <Box sx={isHeaderClicked ? Style.hide : Style.show}>
+        {' '}
+        <Footer />
+      </Box>
     </Container>
   );
 };

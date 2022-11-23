@@ -214,8 +214,7 @@ var x int = 2020
 
 
 # 参考記事
-- https://talks.golang.org/2014/names.slide#9
-- https://tanakakns.github.io/go/naming/
-- https://zenn.dev/keitakn/articles/go-naming-rules
-- https://tanakakns.github.io/go/naming/
-- https://github.com/golang/go/wiki/CodeReviewComments
+ https://talks.golang.org/2014/names.slide#9
+ https://tanakakns.github.io/go/naming/
+ https://zenn.dev/keitakn/articles/go-naming-rules
+ https://github.com/golang/go/wiki/CodeReviewComments

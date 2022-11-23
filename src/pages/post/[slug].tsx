@@ -8,7 +8,7 @@ import { Main } from '@/templates/Main';
 import { Post as PostType } from '@/types';
 import { getAllPosts, getPostBySlug } from '@/utils/Content';
 import { useSize } from '@/utils/Hooks';
-import { markdownToHtml } from '@/utils/Markdown';
+import { getOgpData,getFloatingUrls } from "@/utils/Ogp"
 
 type PostUrl = {
   slug: string;
@@ -16,6 +16,7 @@ type PostUrl = {
 
 type PostProps = {
   post: PostType;
+  ogpData: any
 };
 
 export const getStaticPaths: GetStaticPaths<PostUrl> = async () => {
@@ -42,8 +43,8 @@ export const getStaticProps: GetStaticProps<PostProps, PostUrl> = async ({
     'slug',
   ]);
 
-  const content = await markdownToHtml(post.content || '');
-
+  const floatingUrls = getFloatingUrls(post.content ?? '');
+  const data = await getOgpData(floatingUrls)
   return {
     props: {
       post: {
@@ -52,14 +53,15 @@ export const getStaticProps: GetStaticProps<PostProps, PostUrl> = async ({
         introduction: post.introduction ?? '',
         date: post.date,
         thumbnail: post.thumbnail,
-        content,
+        content:post.content,
       },
+      ogpData:data
     },
   };
 };
 const PostPage: NextPage<PostProps> = (props) => {
   const { isDesktop } = useSize();
-  const { post } = props;
+  const { post,ogpData } = props;
   return (
     <Main
       meta={
@@ -74,7 +76,7 @@ const PostPage: NextPage<PostProps> = (props) => {
         />
       }
     >
-      <Post post={post} isDesktop={isDesktop} />
+      <Post post={post} isDesktop={isDesktop} ogp={ogpData}/>
     </Main>
   );
 };

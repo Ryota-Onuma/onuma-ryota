@@ -95,12 +95,26 @@ const HeaderComponent = (props: {
               ))}
             </Box>
             <Box sx={Style.sns.container}>
-              <Box sx={Style.sns.icon}>
-                <Icon icon={githubIcon} color="white" width="30" height="30" />
-              </Box>
-              <Box sx={Style.sns.icon}>
-                <Icon icon={twitterIcon} color="white" width="30" height="30" />
-              </Box>
+              <Link href="https://github.com/Ryota-Onuma" target='_blank'>
+                  <Box sx={Style.sns.icon}>
+                    <Icon
+                      icon={githubIcon}
+                      color="white"
+                      width="30"
+                      height="30"
+                    />
+                  </Box>
+              </Link>
+              <Link href="/">
+                <Box sx={Style.sns.icon}>
+                  <Icon
+                    icon={twitterIcon}
+                    color="white"
+                    width="30"
+                    height="30"
+                  />
+                </Box>
+              </Link>
             </Box>
           </Box>
         </>

@@ -8,12 +8,13 @@ import Prism from 'prismjs';
 
 import Loading from '@/components/elements/Loading';
 import { PageProps, Post as PostType } from '@/types';
+import { OGP } from '@/utils/Ogp';
 
 import { PostStyle as Style } from './style';
 
 type PostPageProps = PageProps & {
   post: PostType;
-  ogp: any;
+  ogp: OGP[];
 };
 /* eslint-disable prefer-destructuring */
 const getDomainFromUrl = (url: string | undefined): string | undefined => {
@@ -42,7 +43,7 @@ const imgURL = (
   return url ?? '/images/buntyo.png';
 };
 
-const shouldNotBeCard = (ogpData) => {
+const shouldNotBeCard = (ogpData: OGP) => {
   return !ogpData || ogpData.title === '' || ogpData.description === '';
 };
 
@@ -50,49 +51,11 @@ const Post: React.FC<PostPageProps> = (props) => {
   const { isDesktop, post, ogp } = props;
   const [content, setContent] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const renderer = new Renderer();
-  renderer.link = (href, title, text) => {
-    const sanitizedUrl = encodeURI(href ?? '');
-    const ogpData = ogp.find((data) => data.url && href?.startsWith(data.url));
-
-    if ((text !== href && `${text}/` !== href) || shouldNotBeCard(ogpData)) {
-      return `
-      <div class="og-raw-container">
-        <a href="${sanitizedUrl}" target="_blank" 
-          ${title ? `title="${title}">` : ''}
-        >${text}</a>
-      </div>`;
-    }
-
-    const domain = getDomainFromUrl(ogpData?.url);
-    const imgSrc = imgURL(ogpData?.image, domain);
-    const url = ogpData ? ogpData.url : '';
-    return `
-    <div class="og-container">
-      <a href=${url} target="_blank" class="og-link">
-        <div class="og-card">
-          <div class="og-thumbnail-container">
-            <img src="${imgSrc}" alt="${ogpData.title}" class="og-thumbnail"/>
-          </div>
-          <div class="og-text-container">
-            <h1 class="og-title">${ogpData.title}</h1>
-            <p class="og-description">${ogpData.description}</p>
-            <div class="og-domain-container">
-              <img src="https://www.google.com/s2/u/0/favicons?domain=${domain}" alt="${domain}"/>
-              <div class="og-domain-name">${domain}</div>
-            </div>
-        </div>
-        </div>
-      </a>
-    </div>
-    `;
-  };
 
   useEffect(() => {
     marked.setOptions({
       breaks: true,
       langPrefix: 'language-',
-      renderer,
       highlight: (code: string, lang: string) => {
         if (lang && lang.match(':')) {
           /* eslint-disable no-param-reassign */
@@ -104,9 +67,56 @@ const Post: React.FC<PostPageProps> = (props) => {
         return code;
       },
     });
+
+    const renderer = new Renderer();
+    renderer.link = (href, title, text) => {
+      const sanitizedUrl = encodeURI(href ?? '');
+      const ogpData = ogp.find(
+        (data: OGP) => data.url && href?.startsWith(data.url)
+      );
+      if (ogpData) {
+        if (
+          (text !== href && `${text}/` !== href) ||
+          shouldNotBeCard(ogpData)
+        ) {
+          return `
+            <div class="og-raw-container">
+              <a href="${sanitizedUrl}" target="_blank" 
+                ${title ? `title="${title}">` : ''}
+              >${text}</a>
+            </div>`;
+        }
+
+        const domain = getDomainFromUrl(ogpData?.url);
+        const imgSrc = imgURL(ogpData?.image, domain);
+        const url = ogpData ? ogpData.url : '';
+        return `
+      <div class="og-container">
+        <a href=${url} target="_blank" class="og-link">
+          <div class="og-card">
+            <div class="og-thumbnail-container">
+              <img src="${imgSrc}" alt="${ogpData.title}" class="og-thumbnail"/>
+            </div>
+            <div class="og-text-container">
+              <h1 class="og-title">${ogpData.title}</h1>
+              <p class="og-description">${ogpData.description}</p>
+              <div class="og-domain-container">
+                <img src="https://www.google.com/s2/u/0/favicons?domain=${domain}" alt="${domain}"/>
+                <div class="og-domain-name">${domain}</div>
+              </div>
+          </div>
+          </div>
+        </a>
+      </div>
+      `;
+      }
+      return '';
+    };
+    marked.use({ renderer });
+
     setContent(post.content ?? '');
     Prism.highlightAll();
-  }, [content, post]);
+  }, [content, post, ogp]);
 
   return (
     <>

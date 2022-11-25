@@ -1,6 +1,13 @@
 const jsdom = require('jsdom');
 
 const { JSDOM } = jsdom;
+export type OGP = {
+  url: string;
+  title: string;
+  description: string;
+  image: string;
+};
+
 /* eslint-disable no-plusplus */
 export const getOgpData = async (links: string[]) => {
   const metadata = await Promise.all(
@@ -9,7 +16,7 @@ export const getOgpData = async (links: string[]) => {
         // 3. URLからtext/htmlデータを取得 ====================================
         .then((res) => res.text())
         .then((text) => {
-          const metaData = {
+          const metaData: OGP = {
             url: link,
             title: '',
             description: '',
@@ -39,9 +46,6 @@ export const getOgpData = async (links: string[]) => {
             }
           }
           return metaData;
-        })
-        .catch((e) => {
-          console.log(e);
         });
       return metas;
     })

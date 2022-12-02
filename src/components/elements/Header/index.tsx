@@ -2,21 +2,27 @@ import githubIcon from '@iconify/icons-bi/github';
 import twitterIcon from '@iconify/icons-bi/twitter';
 import { Icon } from '@iconify/react';
 import { Link, Container, Box, Typography } from '@mui/material';
+import Image from 'next/image';
+
+import { useSize } from '@/utils/Hooks';
 
 import { HeaderStyle as Style } from './style';
 
 type HeaderLink = {
   displayName: string;
   url: string;
+  isDesktop: boolean;
 };
 const links: HeaderLink[] = [
   {
     displayName: 'Home',
     url: '/',
+    isDesktop: false,
   },
   {
     displayName: 'Posts',
     url: '/posts',
+    isDesktop: true,
   },
 ];
 
@@ -26,30 +32,53 @@ type HeaderProps = {
   toggleHeaderClicked: () => void;
 };
 
-const HeaderComponent = (props: {
+const PCHeader = () => {
+  return (
+    <Box sx={Style.pc.inner}>
+      <Box>
+        <Link href="/">
+          <Image src="/images/buntyo.png" width={50} height={50} />
+        </Link>
+      </Box>
+      <Box>
+        {links.map((link: HeaderLink) => (
+          <Box key={link.url}>
+            {link.isDesktop && (
+              <Link href={link.url} key={link.url}>
+                <Typography component="span" sx={Style.pc.linkDisplayName}>
+                  {link.displayName}
+                </Typography>
+              </Link>
+            )}
+          </Box>
+        ))}
+      </Box>
+    </Box>
+  );
+};
+
+const MobileHeader = (props: {
   isHeaderClicked: boolean;
   toggleHeaderClicked: () => void;
 }) => {
   const { isHeaderClicked, toggleHeaderClicked } = props;
   return (
-    <Container
-      component="header"
-      disableGutters={true}
-      sx={Style.header}
-      maxWidth={false}
-    >
-      <Box onClick={() => toggleHeaderClicked()} sx={Style.headerMenuContainer}>
-        <Box sx={Style.headerMenu.container}>
+    <Box sx={Style.mobile.inner}>
+      <Box
+        onClick={() => toggleHeaderClicked()}
+        sx={Style.mobile.headerMenuContainer}
+      >
+        <Box sx={Style.mobile.headerMenu.container}>
           <Box
             sx={
               isHeaderClicked
                 ? {
-                    ...Style.headerMenu.bar,
-                    ...Style.headerMenu.clicked.barTop,
+                    ...Style.mobile.headerMenu.bar,
+                    ...Style.mobile.headerMenu.clicked.barTop,
                   }
                 : {
-                    ...Style.headerMenu.bar,
-                    ...Style.headerMenu.notClicked.barTop,
+                    ...Style.mobile.headerMenu.bar,
+                    ...Style.mobile.headerMenu.notClicked.barTop,
                   }
             }
           ></Box>
@@ -57,12 +86,12 @@ const HeaderComponent = (props: {
             sx={
               isHeaderClicked
                 ? {
-                    ...Style.headerMenu.bar,
-                    ...Style.headerMenu.clicked.barMiddle,
+                    ...Style.mobile.headerMenu.bar,
+                    ...Style.mobile.headerMenu.clicked.barMiddle,
                   }
                 : {
-                    ...Style.headerMenu.bar,
-                    ...Style.headerMenu.notClicked.barMiddle,
+                    ...Style.mobile.headerMenu.bar,
+                    ...Style.mobile.headerMenu.notClicked.barMiddle,
                   }
             }
           ></Box>
@@ -70,33 +99,35 @@ const HeaderComponent = (props: {
             sx={
               isHeaderClicked
                 ? {
-                    ...Style.headerMenu.bar,
-                    ...Style.headerMenu.clicked.barBottom,
+                    ...Style.mobile.headerMenu.bar,
+                    ...Style.mobile.headerMenu.clicked.barBottom,
                   }
                 : {
-                    ...Style.headerMenu.bar,
-                    ...Style.headerMenu.notClicked.barBottom,
+                    ...Style.mobile.headerMenu.bar,
+                    ...Style.mobile.headerMenu.notClicked.barBottom,
                   }
             }
           ></Box>
         </Box>
       </Box>
-      {/* </Box> */}
       {isHeaderClicked ? (
         <>
-          <Box sx={Style.headerOverlay}>
-            <Box sx={Style.linkContainer}>
+          <Box sx={Style.mobile.headerOverlay}>
+            <Box sx={Style.mobile.linkContainer}>
               {links.map((link: HeaderLink) => (
                 <Link href={link.url} key={link.url}>
-                  <Typography component="span" sx={Style.linkDisplayName}>
+                  <Typography
+                    component="span"
+                    sx={Style.mobile.linkDisplayName}
+                  >
                     {link.displayName}
                   </Typography>
                 </Link>
               ))}
             </Box>
-            <Box sx={Style.sns.container}>
+            <Box sx={Style.mobile.sns.container}>
               <Link href="https://github.com/Ryota-Onuma" target="_blank">
-                <Box sx={Style.sns.icon}>
+                <Box sx={Style.mobile.sns.icon}>
                   <Icon
                     icon={githubIcon}
                     color="white"
@@ -106,7 +137,7 @@ const HeaderComponent = (props: {
                 </Box>
               </Link>
               <Link href="/">
-                <Box sx={Style.sns.icon}>
+                <Box sx={Style.mobile.sns.icon}>
                   <Icon
                     icon={twitterIcon}
                     color="white"
@@ -121,16 +152,24 @@ const HeaderComponent = (props: {
       ) : (
         <></>
       )}
-    </Container>
+    </Box>
   );
 };
 
 export const Header: React.FC<HeaderProps> = (props) => {
   const { isHeaderClicked, toggleHeaderClicked } = props;
+  const { isDesktop } = useSize();
+
   return (
-    <HeaderComponent
-      isHeaderClicked={isHeaderClicked}
-      toggleHeaderClicked={toggleHeaderClicked}
-    />
+    <Container component="header" disableGutters={true} maxWidth={false}>
+      {isDesktop ? (
+        <PCHeader />
+      ) : (
+        <MobileHeader
+          isHeaderClicked={isHeaderClicked}
+          toggleHeaderClicked={toggleHeaderClicked}
+        />
+      )}
+    </Container>
   );
 };

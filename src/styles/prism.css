@@ -202,6 +202,10 @@ pre[class*='language-'] {
   display: inline;
   color: white;
 }
+.postContent ul li p {
+  display: inline;
+}
+
 
 .postContent ol li {
   list-style: decimal;
@@ -215,6 +219,10 @@ pre[class*='language-'] {
 .postContent ol li a {
   display: inline;
   color: white;
+}
+
+.postContent ol li p {
+  display: inline;
 }
 
 .postContent ul li ul {

@@ -17,41 +17,56 @@ type PostPageProps = PageProps & {
   ogp: OGP[];
 };
 /* eslint-disable prefer-destructuring */
-const getDomainFromUrl = (url: string | undefined): string | undefined => {
-  if (!url) return undefined;
-  let result;
-  let match = url.match(
-    /^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:/\n?=]+)/im
-  );
-  if (match) {
-    result = match[1];
-    match = result.match(/^[^.]+\.(.+\..+)$/);
-    if (match) {
-      result = match[1];
-    }
-  }
-  return result;
-};
-
-const imgURL = (
-  url: string | undefined,
-  domain: string | undefined
-): string => {
-  if (domain && (!url || url.match(/\.(jpeg|jpg|gif|png)$/) == null)) {
-    return `https://www.google.com/s2/u/0/favicons?domain=${domain}&sz=65`;
-  }
-  return url ?? '/images/buntyo.png';
-};
+const getDomainFromUrl = (url: string) => new URL(url).origin;
 
 const shouldNotBeCard = (ogpData: OGP) => {
-  return !ogpData || ogpData.title === '' || ogpData.description === '';
+  if (ogpData.title && ogpData.image && ogpData.url) {
+    return false;
+  }
+  return true;
+};
+
+const generateDescription = (description: string, isDesktop: boolean) => {
+  const threshold = isDesktop ? 40 : 30;
+  return description.length > threshold
+    ? `${description.substr(0, threshold)}...`
+    : description;
+};
+
+const blogCardDesktop = (
+  title: string,
+  description: string,
+  domain: string,
+  imgSrc: string,
+  url: string,
+  isDesktop: boolean
+) => {
+  const cssMode = isDesktop ? 'desktop' : 'mobile';
+  return `
+      <div class="og-${cssMode}-container">
+        <a href=${url} target="_blank" class="og-${cssMode}-link">
+          <div class="og-${cssMode}-card">
+            <div class="og-${cssMode}-text-container">
+              <p class="og-${cssMode}-title">${title}</p>
+              <p class="og-${cssMode}-description">${description}</p>
+              <div class="og-${cssMode}-domain-container">
+                <img src="https://www.google.com/s2/u/0/favicons?domain=${domain}" alt="${domain}"/>
+                <div class="og-${cssMode}-domain-name">${domain}</div>
+              </div>
+            </div>
+            <div class="og-${cssMode}-thumbnail-container">
+              <img src="${imgSrc}" onerror="this.onerror=null;this.src='/images/no-image.png'" alt="${title}" class="og-${cssMode}-thumbnail"/>
+            </div>
+          </div>
+        </a>
+      </div>
+  `;
 };
 
 const Post: React.FC<PostPageProps> = (props) => {
   const { isDesktop, post, ogp } = props;
   const [content, setContent] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(true);
-
   useEffect(() => {
     marked.setOptions({
       breaks: true,
@@ -74,49 +89,37 @@ const Post: React.FC<PostPageProps> = (props) => {
       const ogpData = ogp.find(
         (data: OGP) => data.url && href?.startsWith(data.url)
       );
-      if (ogpData) {
-        if (
-          (text !== href && `${text}/` !== href) ||
-          shouldNotBeCard(ogpData)
-        ) {
-          return `
-            <div class="og-raw-container">
-              <a href="${sanitizedUrl}" target="_blank" 
-                ${title ? `title="${title}">` : ''}
-              >${text}</a>
-            </div>`;
-        }
-
-        const domain = getDomainFromUrl(ogpData?.url);
-        const imgSrc = imgURL(ogpData?.image, domain);
-        const url = ogpData ? ogpData.url : '';
-        return `
-      <div class="og-container">
-        <a href=${url} target="_blank" class="og-link">
-          <div class="og-card">
-            <div class="og-thumbnail-container">
-              <img src="${imgSrc}" alt="${ogpData.title}" class="og-thumbnail"/>
-            </div>
-            <div class="og-text-container">
-              <h1 class="og-title">${ogpData.title}</h1>
-              <p class="og-description">${ogpData.description}</p>
-              <div class="og-domain-container">
-                <img src="https://www.google.com/s2/u/0/favicons?domain=${domain}" alt="${domain}"/>
-                <div class="og-domain-name">${domain}</div>
-              </div>
-          </div>
-          </div>
-        </a>
-      </div>
-      `;
+      if (!ogpData) {
+        return '';
       }
-      return '';
+      if ((text !== href && `${text}/` !== href) || shouldNotBeCard(ogpData)) {
+        return `
+          <div class="og-raw-container">
+            <a href="${sanitizedUrl}" target="_blank" 
+              ${title ? `title="${title}">` : ''}
+            >${text}</a>
+          </div>`;
+      }
+
+      const ogpDomain = getDomainFromUrl(ogpData?.url);
+      const ogpImgSrc = ogpData.image ?? '/images/no-image.png';
+      const url = ogpData ? ogpData.url : '';
+      const ogpTitle = ogpData.title ?? '';
+      const ogpDescription = ogpData.description ?? '';
+
+      return blogCardDesktop(
+        ogpTitle,
+        generateDescription(ogpDescription, isDesktop),
+        ogpDomain,
+        ogpImgSrc,
+        url,
+        isDesktop
+      );
     };
     marked.use({ renderer });
-
     setContent(post.content ?? '');
     Prism.highlightAll();
-  }, [content, post, ogp]);
+  }, [content, post, ogp, isDesktop]);
 
   return (
     <>

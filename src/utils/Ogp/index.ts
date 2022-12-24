@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-syntax */
 const jsdom = require('jsdom');
 
 const { JSDOM } = jsdom;
@@ -25,24 +26,21 @@ export const getOgpData = async (links: string[]) => {
 
           const doms = new JSDOM(text);
           const metaInDoms = doms.window.document.getElementsByTagName('meta');
-          for (let i = 0; i < metaInDoms.length; i++) {
-            let pro = metaInDoms[i].getAttribute('property');
-            if (typeof pro === 'string') {
-              if (pro.match('title'))
-                metaData.title = metaInDoms[i].getAttribute('content');
-              if (pro.match('description'))
-                metaData.description = metaInDoms[i].getAttribute('content');
-              if (pro.match('image'))
-                metaData.image = metaInDoms[i].getAttribute('content');
-            }
-            pro = metaInDoms[i].getAttribute('name');
-            if (typeof pro === 'string') {
-              if (pro.match('title'))
-                metaData.title = metaInDoms[i].getAttribute('content');
-              if (pro.match('description'))
-                metaData.description = metaInDoms[i].getAttribute('content');
-              if (pro.match('image'))
-                metaData.image = metaInDoms[i].getAttribute('content');
+          for (const meta of metaInDoms) {
+            const np =
+              meta.getAttribute('name') || meta.getAttribute('property');
+            if (typeof np === 'string') {
+              if (np.match(/title/)) {
+                metaData.title = meta.getAttribute('content');
+              }
+              if (np.match(/description/)) {
+                metaData.description = meta
+                  .getAttribute('content')
+                  .slice(0, 100);
+              }
+              if (np.match(/image/)) {
+                metaData.image = meta.getAttribute('content');
+              }
             }
           }
           return metaData;

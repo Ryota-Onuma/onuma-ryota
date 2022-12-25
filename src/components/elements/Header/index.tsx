@@ -37,7 +37,12 @@ const PCHeader = () => {
     <Box sx={Style.pc.inner}>
       <Box>
         <Link href="/">
-          <Image src="/images/buntyo.png" width={50} height={50} />
+          <Image
+            src="/images/buntyo.png"
+            width={50}
+            height={50}
+            alt="main logo"
+          />
         </Link>
       </Box>
       <Box>

@@ -65,8 +65,9 @@ const blogCardDesktop = (
 
 const Post: React.FC<PostPageProps> = (props) => {
   const { isDesktop, post, ogp } = props;
-  const [content, setContent] = useState<string>('');
+  const [content] = useState<string>(post.content);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+
   useEffect(() => {
     marked.setOptions({
       breaks: true,
@@ -117,9 +118,8 @@ const Post: React.FC<PostPageProps> = (props) => {
       );
     };
     marked.use({ renderer });
-    setContent(post.content ?? '');
     Prism.highlightAll();
-  }, [content, post, ogp, isDesktop]);
+  });
 
   return (
     <>

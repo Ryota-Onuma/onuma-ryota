@@ -7,6 +7,7 @@ import Image from 'next/image';
 import Prism from 'prismjs';
 
 import Loading from '@/components/elements/Loading';
+import { Toc, TocElement } from '@/components/pages/Post/components/Toc';
 import { PageProps, Post as PostType } from '@/types';
 import { OGP } from '@/utils/Ogp';
 
@@ -16,6 +17,7 @@ type PostPageProps = PageProps & {
   post: PostType;
   ogp: OGP[];
 };
+
 /* eslint-disable prefer-destructuring */
 const getDomainFromUrl = (url: string) => new URL(url).origin;
 
@@ -121,6 +123,14 @@ const Post: React.FC<PostPageProps> = (props) => {
     Prism.highlightAll();
   });
 
+  const tokens = marked.lexer(content);
+  const headings: TocElement[] = tokens
+    .filter((token) => token.type === 'heading')
+    .map((heading) => {
+      // @ts-ignore
+      return { text: heading.text, depth: heading.depth };
+    });
+
   return (
     <>
       {isDesktop ? (
@@ -155,6 +165,8 @@ const Post: React.FC<PostPageProps> = (props) => {
                 </Typography>
               </Box>
             </Box>
+            {/* toc */}
+            <Toc headings={headings} isDesctop={isDesktop} />
             <Box
               sx={Style.desktop.post.bottom.container}
               className="postContent"
@@ -197,6 +209,7 @@ const Post: React.FC<PostPageProps> = (props) => {
                 </Typography>
               </Box>
             </Box>
+            <Toc headings={headings} isDesctop={isDesktop} />
             <Box
               sx={Style.desktop.post.bottom.container}
               className="postContent"

@@ -9,6 +9,7 @@ import '@/styles/prism.css';
 
 import 'nprogress/nprogress.css';
 import '@/styles/custom-nprogress.css';
+import '@/styles/blog-card.css';
 
 Router.events.on('routeChangeStart', () => NProgress.start());
 Router.events.on('routeChangeComplete', () => NProgress.done());

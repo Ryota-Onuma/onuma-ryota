@@ -14,7 +14,7 @@ Goにおける良い命名とは、
 - 短い（ = タイピングしやすい）
 - 正確（ = わかりやすい）
  
-### ディレクトリ名
+## ディレクトリ名
 - なるべく1単語にする
 - どうしようもない時はケバブケース(/xxx-xxxxx)
 ## ファイル名
@@ -199,8 +199,8 @@ if err := f(); err != nil {
 - 型を指定することで見やすくなる
 ```go
 func main(){
-var x int = 2020
-//do something
+  var x int = 2020
+  //do something
 }
 ```
 ## 不要な変数やインポートは書かない
@@ -215,6 +215,6 @@ var x int = 2020
 
 # 参考記事
  https://talks.golang.org/2014/names.slide#9
- https://tanakakns.github.io/go/naming/
- https://zenn.dev/keitakn/articles/go-naming-rules
+ https://tanakakns.github.io/go/naming
+ https://zenn.dev/keitakn/articles/go-naming-rules:embed
  https://github.com/golang/go/wiki/CodeReviewComments

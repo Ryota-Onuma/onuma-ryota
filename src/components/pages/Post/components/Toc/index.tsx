@@ -62,7 +62,7 @@ export const Toc = ({ headings, isDesctop }: TocProps) => {
                 key={i}
                 component="li"
                 style={{
-                  marginLeft: e.depth > 2 ? `${e.depth * 10}px` : 0,
+                  marginLeft: e.depth > 1 ? `${e.depth * 10}px` : 0,
                 }}
               >
                 <Link

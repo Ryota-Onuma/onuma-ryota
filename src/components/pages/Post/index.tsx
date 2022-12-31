@@ -92,9 +92,15 @@ const Post: React.FC<PostPageProps> = (props) => {
       const ogpData = ogp.find(
         (data: OGP) => data.url && href?.startsWith(data.url)
       );
+
       if (!ogpData) {
-        return '';
+        // :embedじゃないとき
+        return `
+        <a href="${sanitizedUrl}" target="_blank" 
+          ${title ? `title="${title}">` : ''}
+        >${text}</a>`;
       }
+
       if ((text !== href && `${text}/` !== href) || shouldNotBeCard(ogpData)) {
         return `
           <div class="og-raw-container">
@@ -123,14 +129,13 @@ const Post: React.FC<PostPageProps> = (props) => {
     Prism.highlightAll();
   });
 
-  const tokens = marked.lexer(content);
+  const tokens = marked.lexer(post.content);
   const headings: TocElement[] = tokens
     .filter((token) => token.type === 'heading')
     .map((heading) => {
       // @ts-ignore
       return { text: heading.text, depth: heading.depth };
     });
-
   return (
     <>
       {isDesktop ? (

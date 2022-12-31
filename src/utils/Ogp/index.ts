@@ -52,9 +52,12 @@ export const getOgpData = async (links: string[]) => {
 };
 
 export const getFloatingUrls = (md: string): string[] => {
+  const embed = ':embed';
   const regFloatUrl =
     /(?<!\()https?:\/\/[-_.!~*\\'()a-zA-Z0-9;\\/?:\\@&=+\\$,%#]+/g;
-  const floatUrls = md.match(regFloatUrl);
-
+  const floatUrls = md
+    .match(regFloatUrl)
+    ?.filter((url) => url.endsWith(embed))
+    .map((url) => url.replace(embed, ''));
   return floatUrls ?? [];
 };

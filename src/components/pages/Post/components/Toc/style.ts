@@ -57,7 +57,7 @@ export const TocStyle = {
         display: 'inline-block',
         verticalAlign: 'text-top',
         fontSize: '18px',
-        lineHeight: '18px',
+        lineHeight: '22px',
       },
     },
   },

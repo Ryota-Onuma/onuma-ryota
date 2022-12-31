@@ -32,8 +32,8 @@ export const Toc = ({ headings, isDesctop }: TocProps) => {
               >
                 <Link
                   href={`#${e.text
-                    .replace(/ /g, '-')
-                    .replace(/[/\\^$*+?.()|[\]{}<>:;"'~,=@`#!%&]/g, '')
+                    .replace(/\s+/g, '-')
+                    .replace(/[!$%^&@#*()+|~=`{}[\]:";'<>?,./]/g, '')
                     .toLowerCase()}`}
                   passHref
                 >
@@ -67,8 +67,8 @@ export const Toc = ({ headings, isDesctop }: TocProps) => {
               >
                 <Link
                   href={`#${e.text
-                    .replace(/ /g, '-')
-                    .replace(/[/\\^$*+?.()|[\]{}<>:;"'~,=@`#!%&]/g, '')
+                    .replace(/\s+/g, '-')
+                    .replace(/[!$%^&@#*()+|~=`{}[\]:";'<>?,./]/g, '')
                     .toLowerCase()}`}
                   passHref
                 >

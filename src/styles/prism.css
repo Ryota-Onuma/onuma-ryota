@@ -178,6 +178,7 @@ pre[class*='language-'] {
   margin: 3px 0;
   display: inline;
   color: white;
+  word-break: break-all;
 }
 
 .postContent p {

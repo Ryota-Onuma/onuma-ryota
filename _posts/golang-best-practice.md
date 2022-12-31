@@ -84,6 +84,7 @@ if owner != user {
 
 ## 引数名
 - 型名が説明的である場合は、引数名は簡潔に
+
 ```go
 func AfterFunc(d Duration, f func()) *Timer
 

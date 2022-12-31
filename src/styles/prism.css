@@ -6,7 +6,6 @@
  */
 
 code {
-  padding: 0px 6px 1px 6px;
   background-color: #13363f;
 }
 
@@ -15,8 +14,6 @@ pre[class*='language-'] {
   background: #13363f;
   color: #ffffff;
   font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
-  /* this is the default */
-  /* The following properties are standard, please leave them as they are */
   font-size: 1em;
   direction: ltr;
   text-align: left;
@@ -27,7 +24,6 @@ pre[class*='language-'] {
   -moz-tab-size: 2;
   -o-tab-size: 2;
   tab-size: 2;
-  /* The following properties are also standard */
   -webkit-hyphens: none;
   -moz-hyphens: none;
   -ms-hyphens: none;
@@ -61,12 +57,10 @@ pre[class*='language-'] {
   border-radius: 0.5em;
 }
 
-/* Properties specific to inline code */
 :not(pre) > code[class*='language-'] {
   padding: 0.2em 0.3em;
   border-radius: 0.5rem;
   white-space: normal;
-  /* this is standard */
 }
 
 .token.comment,
@@ -191,13 +185,36 @@ pre[class*='language-'] {
 }
 
 .postContent ul li {
-  list-style: square;
-  list-style-position: inside;
+  list-style: none;
   font-size: 18px;
-  line-height: 38px;
+  line-height: 35px;
   margin: 15px 0;
   word-break: break-all;
+  position: relative;
+  padding-left: 18px;
 }
+.postContent ul li::before {
+  content: "";
+  display: block;
+  width: 6px;
+  height: 6px;
+  background: white;
+  position: absolute;
+  left: 0;
+  top: 17.5px;
+}
+
+.postContent ol li::before {
+  content: "";
+  display: block;
+  width: 6px;
+  height: 6px;
+  background: white;
+  position: absolute;
+  left: 0;
+  top: 17.5px;
+}
+
 
 .postContent ul li a {
   display: inline;
@@ -208,12 +225,13 @@ pre[class*='language-'] {
 }
 
 .postContent ol li {
-  list-style: decimal;
-  list-style-position: inside;
+  list-style: none;
   font-size: 18px;
-  line-height: 38px;
+  line-height: 35px;
   margin: 15px 0;
   word-break: break-all;
+  position: relative;
+  padding-left: 18px;
 }
 
 .postContent ol li a {
@@ -291,11 +309,34 @@ pre[class*='language-'] {
     margin: 20px 0;
     font-size: 18px;
     line-height: 35px;
+    padding-left: 13px;
   }
   .postContent ul li {
     margin: 20px 0;
     font-size: 18px;
     line-height: 35px;
+    padding-left: 13px;
+  }
+
+  .postContent ul li::before {
+    content: "";
+    display: block;
+    width: 6px;
+    height: 6px;
+    background: white;
+    position: absolute;
+    left: 0;
+    top: 17.5px;
+  }
+  .postContent ol li::before {
+    content: "";
+    display: block;
+    width: 6px;
+    height: 6px;
+    background: white;
+    position: absolute;
+    left: 0;
+    top: 17px;
   }
 
   .postContent h1 {

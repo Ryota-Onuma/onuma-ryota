@@ -8,7 +8,7 @@ export const PostStyle = {
         color: theme.palette.monotone.white,
         display: 'flex',
         flexDirection: 'column',
-        gap: 8,
+        gap: 5,
         mx: 'auto',
       },
       top: {

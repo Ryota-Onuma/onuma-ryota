@@ -10,6 +10,15 @@ export const TocStyle = {
         justifyContent: 'flex-start',
         py: 2,
       },
+      toggleButtonContainer: {
+        display: 'flex',
+        justifyContent: 'flex-start',
+      },
+      toggleButton: {
+        cursor: 'pointer',
+        pb: '1px',
+        borderBottom: `1px solid ${theme.palette.monotone.white}`,
+      },
       ul: {
         margin: 0,
       },
@@ -35,6 +44,15 @@ export const TocStyle = {
         flexDirection: 'column',
         justifyContent: 'flex-start',
         py: 2,
+      },
+      toggleButtonContainer: {
+        display: 'flex',
+        justifyContent: 'flex-start',
+      },
+      toggleButton: {
+        cursor: 'pointer',
+        pb: '5px',
+        borderBottom: `1px solid ${theme.palette.monotone.white}`,
       },
       ul: {
         margin: 0,

@@ -8,8 +8,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-import { en, enName } from '@/local/English';
-import { ja, jaName } from '@/local/Japanese';
+import { en, enName } from '@/locale/English';
+import { ja, jaName } from '@/locale/Japanese';
 import { useSize, useLocale } from '@/utils/Hooks';
 
 import { HeaderStyle as Style } from './style';
@@ -69,35 +69,40 @@ const PCHeader = (props: { currentPath: string }) => {
         <MuiLink href={generatePath('/', locale)}>
           <Image
             src="/images/buntyo.png"
-            width={45}
-            height={45}
+            width={50}
+            height={50}
             alt="main logo"
           />
         </MuiLink>
       </Box>
       <Box sx={Style.pc.linkContainer}>
-        {links.map((link: HeaderLink) => (
-          <Box
-            key={generatePath(link.path, locale)}
-            sx={{
-              ...Style.pc.link,
-              ...Style.pc.linkHover,
-            }}
-          >
-            {link.isDesktop && (
-              <MuiLink href={generatePath(link.path, locale)} key={link.path}>
-                <Typography component="span" sx={Style.pc.linkDisplayName}>
-                  {link.displayName}
-                </Typography>
-              </MuiLink>
-            )}
-          </Box>
-        ))}
+        {links
+          .filter((l) => l.isDesktop)
+          .map((link: HeaderLink) => (
+            <Box
+              key={generatePath(link.path, locale)}
+              sx={{
+                ...Style.pc.link,
+                ...Style.pc.linkHover,
+              }}
+            >
+              {link.isDesktop && (
+                <MuiLink href={generatePath(link.path, locale)} key={link.path}>
+                  <Typography component="span" sx={Style.pc.linkDisplayName}>
+                    {link.displayName}
+                  </Typography>
+                </MuiLink>
+              )}
+            </Box>
+          ))}
         {!/.*\/post\/.*/.test(currentPath) && (
           <Box sx={Style.pc.localeMenu.container}>
             <Box
               onClick={() => setIsOpenLocaleMenu(!isOpenLocaleMenu)}
-              sx={Style.pc.link}
+              sx={{
+                ...Style.pc.link,
+                ...Style.pc.localeMenu.icon,
+              }}
             >
               <Icon icon="mdi:language" color="white" width={25} height={25} />
             </Box>

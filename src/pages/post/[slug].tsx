@@ -4,8 +4,8 @@ import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 
 import Post from '@/components/pages/Post';
 import { Meta } from '@/layout/Meta';
-import { en } from '@/local/English';
-import { ja } from '@/local/Japanese/';
+import { en } from '@/locale/English';
+import { ja } from '@/locale/Japanese';
 import { Main } from '@/templates/Main';
 import { Post as PostType } from '@/types';
 import { getAllPosts, getPostBySlug } from '@/utils/Content';

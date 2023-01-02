@@ -3,8 +3,8 @@ import { useMediaQuery } from '@material-ui/core';
 import { useTheme } from '@mui/material/styles';
 import { useRouter } from 'next/router';
 
-import en from '@/local/English';
-import ja from '@/local/Japanese';
+import en from '@/locale/English';
+import ja from '@/locale/Japanese';
 
 export const useSize = () => {
   const theme = useTheme();

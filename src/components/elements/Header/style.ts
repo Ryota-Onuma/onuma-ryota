@@ -6,21 +6,27 @@ export const HeaderStyle = {
       width: '95%',
       display: 'flex',
       justifyContent: 'space-between',
-      alignItems: 'baseline',
+      alignItems: 'center',
       mx: 'auto',
+      py: 0,
       a: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
         textDecoration: 'none',
         borderColor: theme.palette.monotone.white,
+        mt: 1,
       },
     },
     link: {
-      py: 1,
+      py: 0,
       cursor: 'pointer',
       px: 3,
       borderBottom: `2px solid transparent`,
       display: 'flex',
       justifyContent: 'center',
-      alignItems: 'baseline',
+      alignItems: 'center',
+      height: '60px',
     },
     linkHover: {
       '&:hover': {
@@ -37,6 +43,10 @@ export const HeaderStyle = {
       container: {
         position: 'relative',
       },
+      icon: {
+        pt: 1,
+        boxSizing: 'border-box',
+      },
       links: {
         position: 'absolute',
         top: '50px',
@@ -52,6 +62,7 @@ export const HeaderStyle = {
           color: theme.palette.monotone.white,
         },
       },
+
       button: {
         my: 0.5,
       },

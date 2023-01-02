@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import { Box, Typography } from '@mui/material';
 import Link from 'next/link';
 
+import { useLocale } from '@/utils/Hooks';
+
 import { TocStyle as Style } from './style';
 
 export type TocProps = {
@@ -17,6 +19,7 @@ export type TocElement = {
 
 export const Toc = ({ headings, isDesctop }: TocProps) => {
   const [isOpen, setIsOpen] = useState(false);
+  const { t } = useLocale();
   return (
     <>
       {isDesctop ? (
@@ -27,13 +30,13 @@ export const Toc = ({ headings, isDesctop }: TocProps) => {
             sx={Style.desktop.toc.toggleButtonContainer}
           >
             <Box sx={Style.desktop.toc.toggleButton}>
-              {isOpen ? '【目次を閉じる】' : '【目次を開く】'}
+              {isOpen ? t.POST.TOC.CLOSE : t.POST.TOC.OPEN}
             </Box>
           </Box>
           {isOpen && (
             <Box sx={Style.desktop.toc.container}>
               <Typography component="p" sx={Style.desktop.toc.title}>
-                目次
+                {t.POST.TOC.TITLE}
               </Typography>
               <Box component="ul" sx={Style.desktop.toc.ul}>
                 {headings.map((e, i) => (
@@ -75,13 +78,13 @@ export const Toc = ({ headings, isDesctop }: TocProps) => {
             sx={Style.mobile.toc.toggleButtonContainer}
           >
             <Box sx={Style.mobile.toc.toggleButton}>
-              {isOpen ? '【目次を閉じる】' : '【目次を開く】'}
+              {isOpen ? t.POST.TOC.CLOSE : t.POST.TOC.OPEN}
             </Box>
           </Box>
           {isOpen && (
             <Box sx={Style.mobile.toc.container}>
               <Typography component="p" sx={Style.mobile.toc.title}>
-                目次
+                {t.POST.TOC.TITLE}
               </Typography>
               <Box component="ul" sx={Style.mobile.toc.ul}>
                 {headings.map((e, i) => (

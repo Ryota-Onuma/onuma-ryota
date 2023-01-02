@@ -1,28 +1,48 @@
+import { useState } from 'react';
+
 import githubIcon from '@iconify/icons-bi/github';
 import twitterIcon from '@iconify/icons-bi/twitter';
 import { Icon } from '@iconify/react';
-import { Link, Container, Box, Typography } from '@mui/material';
+import { Link as MuiLink, Container, Box, Typography } from '@mui/material';
 import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 
-import { useSize } from '@/utils/Hooks';
+import { en, enName } from '@/local/English';
+import { ja, jaName } from '@/local/Japanese';
+import { useSize, useLocale } from '@/utils/Hooks';
 
 import { HeaderStyle as Style } from './style';
 
 type HeaderLink = {
   displayName: string;
-  url: string;
+  path: string;
   isDesktop: boolean;
 };
 const links: HeaderLink[] = [
   {
     displayName: 'Home',
-    url: '/',
+    path: '/',
     isDesktop: false,
   },
   {
     displayName: 'Posts',
-    url: '/posts',
+    path: '/posts',
     isDesktop: true,
+  },
+];
+
+const locales: {
+  shorthandName: string;
+  name: string;
+}[] = [
+  {
+    shorthandName: ja,
+    name: jaName,
+  },
+  {
+    shorthandName: en,
+    name: enName,
   },
 ];
 
@@ -32,31 +52,76 @@ type HeaderProps = {
   toggleHeaderClicked: () => void;
 };
 
-const PCHeader = () => {
+const generatePath = (path: string, locale: string = ja) => {
+  if (locale === ja) {
+    return path;
+  }
+  return `/${locale}${path}`;
+};
+
+const PCHeader = (props: { currentPath: string }) => {
+  const { currentPath } = props;
+  const [isOpenLocaleMenu, setIsOpenLocaleMenu] = useState(false);
+  const { locale } = useLocale();
   return (
     <Box sx={Style.pc.inner}>
-      <Box>
-        <Link href="/">
+      <Box sx={Style.pc.link}>
+        <MuiLink href={generatePath('/', locale)}>
           <Image
             src="/images/buntyo.png"
-            width={50}
-            height={50}
+            width={45}
+            height={45}
             alt="main logo"
           />
-        </Link>
+        </MuiLink>
       </Box>
-      <Box>
+      <Box sx={Style.pc.linkContainer}>
         {links.map((link: HeaderLink) => (
-          <Box key={link.url}>
+          <Box
+            key={generatePath(link.path, locale)}
+            sx={{
+              ...Style.pc.link,
+              ...Style.pc.linkHover,
+            }}
+          >
             {link.isDesktop && (
-              <Link href={link.url} key={link.url}>
+              <MuiLink href={generatePath(link.path, locale)} key={link.path}>
                 <Typography component="span" sx={Style.pc.linkDisplayName}>
                   {link.displayName}
                 </Typography>
-              </Link>
+              </MuiLink>
             )}
           </Box>
         ))}
+        {!/.*\/post\/.*/.test(currentPath) && (
+          <Box sx={Style.pc.localeMenu.container}>
+            <Box
+              onClick={() => setIsOpenLocaleMenu(!isOpenLocaleMenu)}
+              sx={Style.pc.link}
+            >
+              <Icon icon="mdi:language" color="white" width={25} height={25} />
+            </Box>
+            {isOpenLocaleMenu && (
+              <Box sx={Style.pc.localeMenu.links}>
+                {locales.map((lcl) => (
+                  <Box
+                    onClick={() => setIsOpenLocaleMenu(!isOpenLocaleMenu)}
+                    sx={Style.pc.localeMenu.button}
+                    key={lcl.shorthandName}
+                  >
+                    <Link
+                      href={currentPath}
+                      locale={lcl.shorthandName}
+                      passHref
+                    >
+                      {lcl.name}
+                    </Link>
+                  </Box>
+                ))}
+              </Box>
+            )}
+          </Box>
+        )}
       </Box>
     </Box>
   );
@@ -65,8 +130,11 @@ const PCHeader = () => {
 const MobileHeader = (props: {
   isHeaderClicked: boolean;
   toggleHeaderClicked: () => void;
+  currentPath: string;
 }) => {
-  const { isHeaderClicked, toggleHeaderClicked } = props;
+  const { isHeaderClicked, toggleHeaderClicked, currentPath } = props;
+  const [isOpenLocaleMenu, setIsOpenLocaleMenu] = useState(false);
+  const { locale } = useLocale();
   return (
     <Box sx={Style.mobile.inner}>
       <Box
@@ -120,18 +188,42 @@ const MobileHeader = (props: {
           <Box sx={Style.mobile.headerOverlay}>
             <Box sx={Style.mobile.linkContainer}>
               {links.map((link: HeaderLink) => (
-                <Link href={link.url} key={link.url}>
+                <MuiLink href={generatePath(link.path, locale)} key={link.path}>
                   <Typography
                     component="span"
                     sx={Style.mobile.linkDisplayName}
                   >
                     {link.displayName}
                   </Typography>
-                </Link>
+                </MuiLink>
               ))}
             </Box>
+            {!/.*\/post\/.*/.test(currentPath) && (
+              <Box sx={Style.mobile.locale.container}>
+                {locales.map((lcl) => {
+                  return (
+                    <Box key={lcl.name} sx={Style.mobile.locale.inner}>
+                      <Box
+                        onClick={() => {
+                          setIsOpenLocaleMenu(!isOpenLocaleMenu);
+                          toggleHeaderClicked();
+                        }}
+                      >
+                        <Link
+                          href={currentPath}
+                          locale={lcl.shorthandName}
+                          passHref
+                        >
+                          {lcl.name}
+                        </Link>
+                      </Box>
+                    </Box>
+                  );
+                })}
+              </Box>
+            )}
             <Box sx={Style.mobile.sns.container}>
-              <Link href="https://github.com/Ryota-Onuma" target="_blank">
+              <MuiLink href="https://github.com/Ryota-Onuma" target="_blank">
                 <Box sx={Style.mobile.sns.icon}>
                   <Icon
                     icon={githubIcon}
@@ -140,8 +232,8 @@ const MobileHeader = (props: {
                     height="30"
                   />
                 </Box>
-              </Link>
-              <Link href="/">
+              </MuiLink>
+              <MuiLink href="/">
                 <Box sx={Style.mobile.sns.icon}>
                   <Icon
                     icon={twitterIcon}
@@ -150,7 +242,7 @@ const MobileHeader = (props: {
                     height="30"
                   />
                 </Box>
-              </Link>
+              </MuiLink>
             </Box>
           </Box>
         </>
@@ -164,15 +256,17 @@ const MobileHeader = (props: {
 export const Header: React.FC<HeaderProps> = (props) => {
   const { isHeaderClicked, toggleHeaderClicked } = props;
   const { isDesktop } = useSize();
-
+  const router = useRouter();
+  const currentPath = decodeURI(router.asPath);
   return (
     <Container component="header" disableGutters={true} maxWidth={false}>
       {isDesktop ? (
-        <PCHeader />
+        <PCHeader currentPath={currentPath} />
       ) : (
         <MobileHeader
           isHeaderClicked={isHeaderClicked}
           toggleHeaderClicked={toggleHeaderClicked}
+          currentPath={currentPath}
         />
       )}
     </Container>

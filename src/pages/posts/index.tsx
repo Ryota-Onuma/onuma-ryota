@@ -24,16 +24,19 @@ type PaginatePostsPageProps = {
 export const getStaticProps: GetStaticProps<
   PaginatePostsPageProps,
   PageUrlProps
-> = async ({ params }) => {
-  const posts = getAllPosts([
-    'slug',
-    'title',
-    'date',
-    'thumbnail',
-    'introduction',
-    'externalUrl',
-    'content',
-  ]);
+> = async ({ params, locale }) => {
+  const posts = getAllPosts(
+    [
+      'slug',
+      'title',
+      'date',
+      'thumbnail',
+      'introduction',
+      'externalUrl',
+      'content',
+    ],
+    locale
+  );
   const pages = convertTo2D(posts, AppConfig.pagination_size);
   const currentPage = Number(params ? params.page : 1);
   const currentInd = currentPage - 1;

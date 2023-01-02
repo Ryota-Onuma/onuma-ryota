@@ -4,6 +4,8 @@ import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 
 import Post from '@/components/pages/Post';
 import { Meta } from '@/layout/Meta';
+import { en } from '@/local/English';
+import { ja } from '@/local/Japanese/';
 import { Main } from '@/templates/Main';
 import { Post as PostType } from '@/types';
 import { getAllPosts, getPostBySlug } from '@/utils/Content';
@@ -20,28 +22,42 @@ type PostProps = {
 };
 
 export const getStaticPaths: GetStaticPaths<PostUrl> = async () => {
-  const posts = getAllPosts(['slug']);
-  return {
-    paths: posts.map((post) => ({
+  const jaPosts = getAllPosts(['slug'], ja).filter((post) => post.slug !== '');
+  const jaPaths = jaPosts
+    .filter((v) => v)
+    .map((post) => ({
       params: {
         slug: post.slug,
       },
-    })),
+      locale: 'ja',
+    }));
+
+  const enPosts = getAllPosts(['slug'], en).filter((post) => post.slug !== '');
+  const enPaths = enPosts
+    .filter((v) => v)
+    .map((post) => ({
+      params: {
+        slug: post.slug,
+      },
+      locale: 'en',
+    }));
+
+  const paths = [...jaPaths, ...enPaths];
+  return {
+    paths,
     fallback: false,
   };
 };
 
 export const getStaticProps: GetStaticProps<PostProps, PostUrl> = async ({
   params,
+  locale,
 }) => {
-  const post = getPostBySlug(params!.slug, [
-    'title',
-    'introduction',
-    'date',
-    'thumbnail',
-    'content',
-    'slug',
-  ]);
+  const post = getPostBySlug(
+    params!.slug,
+    ['title', 'introduction', 'date', 'thumbnail', 'content', 'slug'],
+    locale
+  );
 
   const floatingUrls = getFloatingUrls(post.content ?? '');
   const data = await getOgpData(floatingUrls);

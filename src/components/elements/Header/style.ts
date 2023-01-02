@@ -6,20 +6,54 @@ export const HeaderStyle = {
       width: '95%',
       display: 'flex',
       justifyContent: 'space-between',
-      alignItems: 'flex-start',
+      alignItems: 'baseline',
       mx: 'auto',
-      py: '15px',
       a: {
         textDecoration: 'none',
         borderColor: theme.palette.monotone.white,
       },
     },
-    linkDisplayName: {
-      color: theme.palette.monotone.white,
-      pb: 2,
+    link: {
+      py: 1,
+      cursor: 'pointer',
       px: 3,
+      borderBottom: `2px solid transparent`,
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'baseline',
+    },
+    linkHover: {
       '&:hover': {
         borderBottom: `2px solid ${theme.palette.monotone.white}`,
+      },
+    },
+    linkContainer: {
+      display: 'flex',
+    },
+    linkDisplayName: {
+      color: theme.palette.monotone.white,
+    },
+    localeMenu: {
+      container: {
+        position: 'relative',
+      },
+      links: {
+        position: 'absolute',
+        top: '50px',
+        right: 'auto',
+        left: 'auto',
+        px: 1,
+        display: 'flex',
+        flexDirection: 'column',
+        color: theme.palette.monotone.white,
+        alignItems: 'center',
+        a: {
+          textDecoration: 'none',
+          color: theme.palette.monotone.white,
+        },
+      },
+      button: {
+        my: 0.5,
       },
     },
   },
@@ -100,6 +134,7 @@ export const HeaderStyle = {
       animation: 'appear .5s ease', // src/styles/custom-nprogress.css
       boxSizing: 'border-box',
       paddingTop: '50px',
+      gap: 8,
     },
     linkContainer: {
       display: 'flex',
@@ -119,13 +154,29 @@ export const HeaderStyle = {
       color: theme.palette.monotone.white,
       p: 2,
     },
+    locale: {
+      container: {
+        display: 'flex',
+        justifyContent: 'center',
+        color: theme.palette.monotone.white,
+        gap: 4,
+        a: {
+          color: theme.palette.monotone.white,
+          textDecoration: 'none',
+        },
+      },
+      inner: {
+        display: 'flex',
+      },
+      devider: {},
+    },
     sns: {
       container: {
         display: 'flex',
         justifyContent: 'center',
       },
       icon: {
-        m: 8,
+        mx: 8,
         cursor: 'pointer',
       },
     },

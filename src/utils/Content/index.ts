@@ -12,8 +12,8 @@ export type PostItems = {
   [key: string]: string;
 };
 
-export function getPostSlugs() {
-  return fs.readdirSync(postsDirectory);
+export function getPostSlugs(locale: string = 'ja') {
+  return fs.readdirSync(`${postsDirectory}/${locale}`);
 }
 
 export function getPostBySlug(
@@ -26,12 +26,9 @@ export function getPostBySlug(
     'introduction',
     'externalUrl',
     'content',
-  ]
+  ],
+  locale: string = 'ja'
 ) {
-  const realSlug = slug.replace(/\.md$/, '');
-  const fullPath = join(postsDirectory, `${realSlug}.md`);
-  const fileContents = fs.readFileSync(fullPath, 'utf8');
-  const { data, content } = matter(fileContents);
   const post: Post = {
     slug: '',
     externalUrl: '',
@@ -41,6 +38,13 @@ export function getPostBySlug(
     thumbnail: '',
     introduction: '',
   };
+  const realSlug = slug.replace(/\.md$/, '');
+  const fullPath = join(postsDirectory, locale, `${realSlug}.md`);
+  if (!fs.existsSync(fullPath)) {
+    return post;
+  }
+  const fileContents = fs.readFileSync(fullPath, 'utf8');
+  const { data, content } = matter(fileContents);
 
   if (JSON.stringify(data) !== '{}') {
     fields.forEach((field) => {
@@ -72,11 +76,10 @@ export function getPostBySlug(
   return post;
 }
 
-export function getAllPosts(fields: string[] = []) {
-  const slugs = getPostSlugs();
+export function getAllPosts(fields: string[] = [], locale: string = 'ja') {
+  const slugs = getPostSlugs(locale);
   const posts = slugs
-    .map((slug) => getPostBySlug(slug, fields))
-    // sort posts by date in descending order
+    .map((slug) => getPostBySlug(slug, fields, locale))
     .sort((post1, post2) => (post1.date > post2.date ? -1 : 1));
   return posts;
 }

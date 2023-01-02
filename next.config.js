@@ -26,4 +26,9 @@ module.exports = withBundleAnalyzer({
   // You can remove `basePath` if you don't need it.
   reactStrictMode: true,
   productionBrowserSourceMaps: true,
+  i18n: {
+    locales: ['ja', 'en'],
+    defaultLocale: 'ja',
+    localeDetection: false,
+  },
 });
